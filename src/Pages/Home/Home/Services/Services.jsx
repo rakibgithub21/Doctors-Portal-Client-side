@@ -27,7 +27,7 @@ const Services = () => {
     ]
     return (
         <div className="my-10">
-            <div className="text-center space-y-2">
+            <div className="text-center my-5 space-y-2">
                 <h3 className="text-2xl text-primary font-bold">Our Services</h3>
                 <h2 className="text-4xl ">Services We Provide</h2>
             </div>
