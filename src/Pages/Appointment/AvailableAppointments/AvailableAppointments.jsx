@@ -7,6 +7,9 @@ import BookingModal from '../BookingModal/BookingModal';
 // eslint-disable-next-line react/prop-types
 const AvailableAppointments = ({ selectedDate }) => {
     const [appointmentOptions, setAppointmentOptions] = useState([])
+    const [treatment, setTreatment] = useState(null)
+    console.log(treatment);
+
     useEffect(() => {
         fetch('appointmentOptions.json')
             .then(res => res.json())
@@ -22,13 +25,20 @@ const AvailableAppointments = ({ selectedDate }) => {
                     appointmentOptions.map(appointment => <AppointmentOption
                         key={appointment._id}
                         appointment={appointment}
+                        setTreatment={setTreatment}
                     >
 
                     </AppointmentOption>)
                 }
-                
+
             </div>
-                <BookingModal></BookingModal>
+            {
+                treatment &&
+                <BookingModal
+                    treatment={treatment}
+                ></BookingModal>
+
+            }
         </section>
     );
 };
