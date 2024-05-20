@@ -1,17 +1,17 @@
-import { useState } from 'react';
+/* eslint-disable react/prop-types */
 import chair from '../../../../assets/images/chair.png'
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import appointmentBg from '../../../../assets/images/bg.png'
 import { format } from 'date-fns'
 
 
-const AppointmentBanner = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date())
-    console.log(selectedDate);
+const AppointmentBanner = ({ selectedDate, setSelectedDate }) => {
+    
     return (
-        <div className="container px-6 py-16 mx-auto">
+        <div style={{backgroundImage:`url(${appointmentBg})`}} className="container px-6 py-16 mx-auto">
             <div  className="items-center lg:flex">
-                <div className="w-full lg:w-1/2 p-8 ">
+                <div className="w-full lg:w-1/2 p-8  ">
                     <DayPicker
                         mode='single'
                         selected={selectedDate}
