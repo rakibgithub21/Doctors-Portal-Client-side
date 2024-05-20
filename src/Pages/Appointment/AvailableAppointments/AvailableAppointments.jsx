@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import AppointmentOption from "./AppointmentOption";
+import BookingModal from '../BookingModal/BookingModal';
 
 
 // eslint-disable-next-line react/prop-types
@@ -12,7 +13,7 @@ const AvailableAppointments = ({ selectedDate }) => {
             .then(data => setAppointmentOptions(data))
     }, [])
     return (
-        <section className="my-10 ">
+        <section className="my-10 px-4 md:px-0">
 
             <p className="text-center mb-10 text-secondary font-bold">Available Appointments on {format(selectedDate, 'PP')}</p>
 
@@ -22,10 +23,12 @@ const AvailableAppointments = ({ selectedDate }) => {
                         key={appointment._id}
                         appointment={appointment}
                     >
-                        
+
                     </AppointmentOption>)
-}
+                }
+                
             </div>
+                <BookingModal></BookingModal>
         </section>
     );
 };
