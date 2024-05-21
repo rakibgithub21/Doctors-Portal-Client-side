@@ -1,27 +1,47 @@
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthProvider";
 
-import { useForm } from 'react-hook-form';
-import { Link, } from 'react-router-dom';
 
-const Login = () => {
-   
+const Register = () => {
+    const { createUser } = useContext(AuthContext)
+    
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
-
+    const onSubmit = (data) => {
+        createUser(data.email, data.password)
+            .then(res => {
+            console.log(res.user);
+            })
+            .catch(err => {
+            console.log(err.message);
+        })
+    }
     return (
         <div className="flex justify-center items-center h-screen">
 
-            <div className="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg border shadow-md dark:bg-gray-800">
+            <div className="w-full space-y-3 max-w-sm p-6 m-auto mx-auto bg-white rounded-lg border shadow-md dark:bg-gray-800">
                 <div className="flex justify-center mx-auto">
                     <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="" />
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
 
+                    <div>
+                        <label htmlFor="name" className="block text-sm text-gray-800 dark:text-gray-200">Name</label>
+                        <input  {...register("name", { required: true })} placeholder='Type your name' name="name" id="name" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                    </div>
+                    {errors.name && <span className='text-red-500 mt-2 text-sm'>This field is required</span>}
+                    <div>
+                        <label htmlFor="image" className="block text-sm text-gray-800 dark:text-gray-200">Image</label>
+                        <input  {...register("image", { required: true })} placeholder='Your image link' name="image" id="image" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                    </div>
+                    {errors.image && <span className='text-red-500 mt-2 text-sm'>This field is required</span>}
                     <div>
                         <label htmlFor="email" className="block text-sm text-gray-800 dark:text-gray-200">Email</label>
                         <input  {...register("email", { required: true })} placeholder='Type your name' name="email" id="email" type="email" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
@@ -40,14 +60,14 @@ const Login = () => {
                     {errors.password && <span className='text-red-500 mt-2 text-sm'>This field is required</span>}
 
 
-                   
+
 
 
                     {/* {transition - colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50} */}
 
 
                     <div className="mt-6">
-                        <input  className="w-full btn btn-primary px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize " type="submit" value="Login" />
+                        <input className="w-full btn btn-primary px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize " type="submit" value="Register" />
                     </div>
 
 
@@ -81,10 +101,10 @@ const Login = () => {
                     </a>
                 </div>
 
-                <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <Link to={'/register'} className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</Link></p>
+                <p className="mt-8 text-xs font-light text-center text-gray-400"> Already have an account? <Link to={'/login'} className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Please Login</Link></p>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Register;
